@@ -1,0 +1,267 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>My Form App</title>
+
+  <style>
+    body {
+      padding: 5px 30px;
+    }
+
+    input {
+      width: 100%;
+
+      padding: 10px 0;
+
+      margin-bottom: 15px;
+
+      border: 1px solid rgb(213, 210, 210);
+    }
+
+    .form-submit button {
+      background-color: blue;
+
+      color: white;
+
+      padding: 12px 17px;
+      border: none;
+
+      border-radius: 4px;
+    }
+
+    .list-head {
+      margin-bottom: 15px;
+    }
+
+    .list {
+      border-top: 1px solid rgb(220, 215, 215);
+
+      margin-left: 5px;
+
+      padding: 20px;
+
+      display: grid;
+
+      grid-template-rows: 25px;
+
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+
+    .a-edit {
+      border: 1px solid rgb(186, 184, 184);
+
+      padding: 10px;
+
+      color: rgb(142, 138, 138);
+
+      text-decoration: none;
+
+      border-radius: 5px;
+    }
+
+    .a-delete {
+      border: 1px solid red;
+
+      padding: 10px;
+
+      color: red;
+
+      text-decoration: none;
+
+      border-radius: 5px;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(() => {
+      // Function to submit the form via AJAX
+      $('#myForm').submit((event) => {
+        event.preventDefault(); // Prevent form submission
+
+        // Get form data
+        const formData = $('#myForm').serialize();
+
+        // Send AJAX request
+        $.ajax({
+          type: 'get',
+          url: '/submit',
+          data: formData,
+          dataType: 'json',
+          success: () => {
+            // Clear form fields
+            $('#name').val('');
+            $('#email').val('');
+            $('#phone').val('');
+
+            // Fetch updated user data and update the table
+            fetchUsers();
+          },
+          error: (err) => {
+            console.error(err);
+          },
+        });
+      });
+
+      // Function to fetch and update user data in the table
+      function fetchUsers() {
+        $.ajax({
+          type: 'GET',
+          url: '/users',
+          success: (users) => {
+            const table = $('#userTable');
+            table.empty();
+
+            // Append table header
+            const header = $('<tr>');
+            header.append('<th>Name</th>');
+            header.append('<th>Email</th>');
+            header.append('<th>Phone</th>');
+            table.append(header);
+
+            // Append user data to the table
+            users.forEach((user) => {
+              const row = $('<tr>');
+              row.append(`<td>${user.name}</td>`);
+              row.append(`<td>${user.email}</td>`);
+              row.append(`<td>${user.phone}</td>`);
+              table.append(row);
+            });
+          },
+          error: (err) => {
+            console.error(err);
+          },
+        });
+      }
+
+      // Initial fetching of user data and table update
+      fetchUsers();
+    });
+  </script>
+</head>
+
+
+
+
+
+
+
+<body>
+
+  <section class='one'>
+
+    <h1>Web Form</h1>
+
+    <div class='form-div'>
+
+      <form action='#' method='post' id="myForm">
+
+        <div class='form-name'>
+
+          <label for='name'>Name</label><br />
+
+          <input type='text' placeholder='Enter your Full Name' value='' id='name' />
+
+        </div>
+
+        <div class='form-mobile'>
+
+          <label for='mobile'>Mobile</label><br />
+
+          <input type='number' placeholder='Enter your Mobile Number' value='' id='phone' />
+
+        </div>
+
+        <div class='form-email'>
+
+          <label for='email'>Email</label><br />
+
+          <input type='email' name='email' placeholder='Enter your Email Id' value='' id='email' />
+
+        </div>
+
+        <div class='form-submit'>
+
+          <button>Submit</button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <h1>List</h1>
+
+    <div class='list list-head'>
+
+      <div class='list-one-name'>
+        <h3>Name</h3>
+      </div>
+
+      <div class='list-one-mobile'>
+        <h3>Mobile</h3>
+      </div>
+
+      <div class='list-one-email'>
+        <h3>Email</h3>
+      </div>
+
+      <div class='list-one-edit'>
+        <h3>Edit</h3>
+      </div>
+
+      <div class='list-one-delete'>
+        <h3>Delete</h3>
+      </div>
+
+    </div>
+
+    <div class='list'>
+
+      <div class='list-two-name'>Steve jobs</div>
+
+      <div class='list-two-mobile'>9825012345</div>
+
+      <div class='list-two-email'> steve@apple.com</div>
+
+      <div class='list-two-edit'> <a class='a-edit' href=''>Edit</a></div>
+
+      <div class='list-two-delete'><a class='a-delete' href=''>Delete</a></div>
+
+    </div>
+
+    <div class='list'>
+
+      <div class='list-three-name'>Don Draper</div>
+
+      <div class='list-three-mobile'>2501234590</div>
+
+      <div class='list-three-email'>don@srvip.com</div>
+
+      <div class='list-three-edit'> <a class='a-edit' href=''>Edit</a></div>
+
+      <div class='list-three-delete'><a class='a-delete' href=''>Delete</a></div>
+
+    </div>
+
+    <div class='list'>
+
+      <div class='list-four-name'>Mick jagger</div>
+
+      <div class='list-four-mobile'>5012345345</div>
+
+      <div class='list-four-email'>mickhive@gmil.com</div>
+
+      <div class='list-four-edit'> <a class='a-edit' href=''>Edit</a></div>
+
+      <div class='list-four-delete'><a class='a-delete' href=''>Delete</a></div>
+    </div>
+  </section>
+</body>
+
+</html>

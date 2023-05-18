@@ -1,0 +1,48 @@
+<html lang='en'>
+
+  <head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Web Form</title>
+    <link rel='stylesheet' href='./style.css' />
+  </head>
+
+  <body>
+    <h1>Web Form</h1>
+    <div class='form-container'>
+      <form action='/items/createItem' method='post' id='web_form'>
+
+        <label for='name'>Name:</label>
+        <input
+          type='text'
+          name='name'
+          id='name'
+          placeholder='Enter your Full Name'
+          value='{{formData.name}}'
+        />
+
+        <label for='mobile'>Mobile:</label>
+        <input
+          type='tel'
+          name='mobile'
+          id='mobile'
+          placeholder='Enter your Mobile Number'
+          value='{{formData.mobile}}'
+        />
+
+        <label for='email'>Email:</label>
+        <input
+          type='email'
+          name='email'
+          id='email'
+          placeholder='Enter your email'
+          value='{{formData.email}}'
+        />
+
+        <input type='submit' value='Submit' id='submit-btn' />
+      </form>
+    </div>
+  </body>
+
+</html>
